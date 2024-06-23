@@ -1,9 +1,9 @@
 print("Script Source Released on 17.03.2024 (DD/MM/YYYY because Islands is Dead!")
 warn("THIS SCRIPT IS DISCONTINUED FROM NOW!")
 for i = 1, 50 do
-  print("Nekohub on Top | discord.gg/MbsxuDEzgT")
+    print("Nekohub on Top | discord.gg/MbsxuDEzgT")
 end
--- This is a pretty old script so dont joke abt the source type (its older than 90% of Roblox comminity) --
+-- This is a pretty old script so don't joke about the source type (it's older than 90% of Roblox community) --
 
 repeat wait() until game:IsLoaded()
 
@@ -18,63 +18,93 @@ local DeveloperVersion = true
 local NotificationIcon = "rbxassetid://1234567890"
 
 function SendNotification(Title, Text)
-	game:GetService("StarterGui"):SetCore("SendNotification",{
-		Title = Title, -- Required
-		Text = Text, -- Required
-		Icon = NotificationIcon -- Optional
-	})
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+        Title = Title, -- Required
+        Text = Text, -- Required
+        Icon = NotificationIcon -- Optional
+    })
 end	
 
 SendNotification("Welcome!", "Welcome to "..FileName .. " " .. ScriptVersion.."!")
 
 local PremiumText1 = "Premium is only 2$ Lifetime. Go buy it in discord.gg/MbsxuDEzgT"
 
-if isfolder(FileName) then
-
-else
-	makefolder(FileName)
+if not isfolder(FileName) then
+    makefolder(FileName)
 end
 
-
-if isfolder(FileName.."/"..GameName) then
-
-else
-	makefolder(FileName.."/"..GameName)
+if not isfolder(FileName.."/"..GameName) then
+    makefolder(FileName.."/"..GameName)
 end
 
 function IsFile(Name)
-	return isfile(FileName.."/"..GameName.."/"..Name)
+    return isfile(FileName.."/"..GameName.."/"..Name)
 end	
 
 function IsFolder(Name)
-	return isfolder(FileName.."/"..GameName.."/"..Name)
+    return isfolder(FileName.."/"..GameName.."/"..Name)
 end	
 
+function ReadFile(Name)
+    local fullPathWithSlash = FileName.."/"..GameName.."/"..Name
+    local fullPathWithoutSlash = FileName.."/"..GameName..Name
 
-function ReadFile(Name) 
-	if isfile(FileName.."/"..GameName.."/"..Name) == true then
-		return readfile(FileName.."/"..GameName.."/"..Name)
-	else
-		return readfile(FileName.."/"..GameName..Name)
-	end
-	return readfile(FileName.."/"..GameName.."/"..Name)
+    print("Attempting to read file: "..Name)
+    print("Checking path: "..fullPathWithSlash)
+    print("Checking path: "..fullPathWithoutSlash)
+
+    if isfile(fullPathWithSlash) then
+        print("File found at path: "..fullPathWithSlash)
+        return readfile(fullPathWithSlash)
+    elseif isfile(fullPathWithoutSlash) then
+        print("File found at path: "..fullPathWithoutSlash)
+        return readfile(fullPathWithoutSlash)
+    else
+        print("File does not exist: " .. Name .. " in either of these paths: " .. fullPathWithSlash .. " or " .. fullPathWithoutSlash)
+        error("File does not exist: " .. Name .. " in either of these paths: " .. fullPathWithSlash .. " or " .. fullPathWithoutSlash)
+    end
 end
 
 function CreateFolder(Name)
-	makefolder(FileName.."/"..GameName.."/"..Name)
+    makefolder(FileName.."/"..GameName.."/"..Name)
 end	
 
 function CreateFile(Name, Data, CheckIfFile)
-	if CheckIfFile == true then
-		if isfile(FileName.."/"..GameName.."/"..Name) then
-
-		else
-			writefile(FileName.."/"..GameName.."/"..Name, Data)
-		end
-	else
-		writefile(FileName.."/"..GameName.."/"..Name, Data)
-	end
+    if CheckIfFile == true then
+        if not isfile(FileName.."/"..GameName.."/"..Name) then
+            writefile(FileName.."/"..GameName.."/"..Name, Data)
+        end
+    else
+        writefile(FileName.."/"..GameName.."/"..Name, Data)
+    end
 end	
+
+-- Function to create files if they do not exist
+local function EnsureFileExists(filePath, defaultContent)
+    if not IsFile(filePath) then
+        CreateFile(filePath, defaultContent, true)
+    end
+end
+
+-- Ensuring all necessary files exist
+EnsureFileExists("Hash System/KillRemote", "print('KillRemote executed')")
+EnsureFileExists("Hash System/KillRemoteHashName", "default content for KillRemoteHashName")
+EnsureFileExists("Hash System/KillRemoteHash", "default content for KillRemoteHash")
+EnsureFileExists("Hash System/FishFarmFinishRemote", "default content for FishFarmFinishRemote")
+EnsureFileExists("Hash System/AngelRemote", "default content for AngelRemote")
+EnsureFileExists("Hash System/TOOL_PICKUPHashData", "default content for TOOL_PICKUPHashData")
+EnsureFileExists("Hash System/TOOL_PICKUPHash", "default content for TOOL_PICKUPHash")
+EnsureFileExists("Hash System/CropHashData", "default content for CropHashData")
+EnsureFileExists("Hash System/CropHash", "default content for CropHash")
+EnsureFileExists("Hash System/TreeHashData", "default content for TreeHashData")
+EnsureFileExists("Hash System/TreeHash", "default content for TreeHash")
+EnsureFileExists("Hash System/BlockHitHashData", "default content for BlockHitHashData")
+EnsureFileExists("Hash System/BlockHitHash", "default content for BlockHitHash")
+EnsureFileExists("Hash System/CropPlaceHashData", "default content for CropPlaceHashData")
+EnsureFileExists("Hash System/CropPlaceHash", "default content for CropPlaceHash")
+EnsureFileExists("Hash System/BlockPlaceHashData", "default content for BlockPlaceHashData")
+EnsureFileExists("Hash System/BlockPlaceHash", "default content for BlockPlaceHash")
+
 
 -- local TemplateFile = game:HttpGet("https://pastebin.com/raw/yQUgfbZy")
 -- CreateFile("/Schematica/Template", TemplateFile, false)
@@ -794,21 +824,17 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 
 
---[[
 
+-- if _G.SVMZeGIyVb8MDqFsrL0M == true then
 
-if _G.SVMZeGIyVb8MDqFsrL0M == true then
+-- else
+-- 	game.Players.LocalPlayer:Kick("BYE!")
+-- 	task.wait(2)
+-- 	while true do end
+-- end
 
-else
-	game.Players.LocalPlayer:Kick("BYE!")
-	task.wait(2)
-	while true do end
-end
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/pascaldercoole1/Islands/main/RemotesV2"))() 
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/pascaldercoole1/Islands/main/RemotesV2"))() 
-loadstring(game:HttpGet("https://nekohub.000webhostapp.com/Islands.Remotes.Lua"))()
-
-]]
 
 
 
@@ -1430,7 +1456,7 @@ end
 
 SendNotification("[SECURITY]", "Scanning Game...")
 
--- Remotes()
+Remotes()
 
 function FixInv()
 	for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
