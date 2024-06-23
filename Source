@@ -1430,7 +1430,7 @@ end
 
 SendNotification("[SECURITY]", "Scanning Game...")
 
-Remotes()
+-- Remotes()
 
 function FixInv()
 	for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
